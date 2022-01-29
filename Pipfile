@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
+pandas = "*"
+beautifulsoup4 = "*"
+fsspec = "*"
+gspread = "*"
+openpyxl = "*"
+
+[dev-packages]
+ipykernel = "*"
+
+[requires]
+python_version = "3.8"
