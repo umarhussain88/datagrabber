@@ -31,10 +31,12 @@ def create_session_and_login() -> requests.Session:
     soup = BeautifulSoup(r.text, 'html.parser')
 
     token = soup.find('meta', attrs={'name': 'csrf-token'})['content']
+    post_data = {'user[email]': os.getenv('kajabi_user') , 'user[password]': os.getenv('kajabi_password'),
+                'user[remember_me]' : 0, 'authenticity_token' :token} 
+                
+    logger.info(f'post_data: {post_data}')
 
-    s.post('https://app.kajabi.com/login',
-        data={'user[email]': os.getenv('kajabi_user') , 'user[password]': os.getenv('kajabi_password'),
-                'user[remember_me]' : 0, 'authenticity_token' :token} )
+    s.post('https://app.kajabi.com/login',data=post_data)
     return s 
 
 
