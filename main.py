@@ -22,6 +22,7 @@ logger = logger_util("main")
 if __name__ == "__main__":
     acceptable_arguments = ['bing', 'kajabi']
     #check if arg is in acceptable_arguments
+    logger.info(argv)
     if len(argv) > 1 and argv[1] in acceptable_arguments:
         logger.info(f'running report for {argv[1]}')
         if argv[1] == 'bing':
