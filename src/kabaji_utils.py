@@ -2,6 +2,7 @@ import json
 from ast import literal_eval
 from typing import Optional
 from pathlib import Path
+import os
 
 import requests
 from bs4 import BeautifulSoup
@@ -31,11 +32,8 @@ def create_session_and_login() -> requests.Session:
 
     token = soup.find('meta', attrs={'name': 'csrf-token'})['content']
 
-    credentials = get_login_details()
-
-
     s.post('https://app.kajabi.com/login',
-        data={'user[email]': credentials['login'] , 'user[password]': credentials['password'],
+        data={'user[email]': os.getenv('kajabi_user') , 'user[password]': os.getenv('kajabi_password'),
                 'user[remember_me]' : 0, 'authenticity_token' :token} )
     return s 
 
