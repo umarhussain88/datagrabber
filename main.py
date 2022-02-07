@@ -37,6 +37,8 @@ if __name__ == "__main__":
 
         elif argv[1] == 'kajabi':
             kajabi_reports()
+        else:
+            logger.error(f'{argv[1]} is not a valid argument')
 
 
 
