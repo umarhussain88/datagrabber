@@ -33,8 +33,8 @@ def kajabi_reports():
     logger.info("Folder path created")
 
     # clear log sheet
+    logger.info("calling clear log func sheet cleared")
     gs.clear_log_sheet()
-    logger.info("Log sheet cleared")
     # add headers to log sheet
 
     # catch and log any error:
