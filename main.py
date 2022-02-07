@@ -18,8 +18,6 @@ gs = Sheets(
 )
 
 logger = logger_util("main")
-folder_path = iso_date_folder(Path(__file__).parent.joinpath("reports"))
-
 
 if __name__ == "__main__":
     acceptable_arguments = ['bing', 'kajabi']
@@ -27,6 +25,8 @@ if __name__ == "__main__":
     if len(argv) > 1 and argv[1] in acceptable_arguments:
         logger.info(f'running report for {argv[1]}')
         if argv[1] == 'bing':
+
+            folder_path = iso_date_folder(Path(__file__).parent.joinpath("reports"))
             bing_report(
                 client_file=CLIENT_FILE,
                 folder_path=folder_path,
@@ -34,6 +34,7 @@ if __name__ == "__main__":
                 api_version=API_VERSION,
                 scopes=SCOPES,
             )
+
         elif argv[1] == 'kajabi':
             kajabi_reports()
 
