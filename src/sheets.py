@@ -24,7 +24,7 @@ class Sheets:
             object.__setattr__(self,'service', gspread.oauth(credentials_filename=self.secrets_file,
                                 authorized_user_filename=self.auth_user) )
         elif 'service_account' in self.auth_method:
-            object.__setattr__(self,'service', gspread.service_account(filename=self.secrets_file) )
+            object.__setattr__(self,'service', gspread.service_account() )
     
 
     #get kajabi urls from ghseet
@@ -37,6 +37,7 @@ class Sheets:
                             ["Sheet Name", "final_url", "reportKey"]
                      ].set_index("Sheet Name").to_dict(orient="index")
         return keys 
+    
     
     def post_data_to_gsheets(self, dataframe : pd.DataFrame, 
                              start_time : str, 
@@ -64,27 +65,24 @@ class Sheets:
             logger.error(f'Worksheet not found - {worksheet_name}')
             self.post_log_to_gsheets(report=worksheet_name, start_time=start_time, message=f'Error - Worksheet not found with name {worksheet_name}')
 
+
     def post_log_to_gsheets(self, report : str, start_time : str, message : str,
-                            end_time : Optional[str] = '') -> None:
+                            end_time : Optional[str] = pd.Timestamp('now')) -> None:
         sh = self.service.open(self.log_sheet_name)
         ws = sh.get_worksheet(0)
         ws.append_row([report, start_time, end_time, message])
 
+
     def clear_log_sheet(self) -> None:
         sh = self.service.open(self.log_sheet_name)
         ws = sh.get_worksheet(0)
-        ws.clear()
-        ws.append_row(['Report Name', 'Start Time', 'End Time', 'Message'])
 
+        df = pd.DataFrame({"end": pd.to_datetime(ws.col_values(3)[1:])})
+        delta = pd.Timestamp('now') - df["end"].min()
+        logger.info(f'Delta {delta}')
 
-
-
-    #post data to google sheets
-
-    #update metadatalog sheet
-
-
+        if delta.days > 30:
+            logger.info('Clearing log sheet as delta threshold reached')
+            ws.clear()
+            ws.append_row(['Report','Start Time','End Time','Message'])
         
-
-
-
