@@ -95,6 +95,12 @@ class Gmail:
                                                 'addLabelIds': label_ids}).execute()
         return message
 
+    # get date of email
+    def get_date(self,  message_id):
+        # https://developers.google.com/gmail/api/v1/reference/users/messages/get
+        message = self.service.users().messages().get(userId=self.user_id, id=message_id).execute()
+        return message['internalDate']
+
     def read_bing_report(self, file_path : str):
 
         if not Path(file_path).exists():

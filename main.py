@@ -6,7 +6,7 @@ from src import iso_date_folder, logger_util, Sheets, bing_report, kajabi_report
 from sys import argv
 
 
-CLIENT_FILE = "sekrut"  # add your file here.
+CLIENT_FILE = "/home/umarh/lor_data/env/client_secret_345075465565-pf7uulpnd4je2hapvm9hv1ekp7cc5flg.apps.googleusercontent.com (1).json"  # add your file here.
 API_NAME = "gmail"
 API_VERSION = "v1"
 SCOPES = ["https://mail.google.com/"]
@@ -23,6 +23,7 @@ if __name__ == "__main__":
     acceptable_arguments = ['bing', 'kajabi']
     #check if arg is in acceptable_arguments
     logger.info(argv)
+    argv = ['','bing'] # for debugging.
     if len(argv) > 1 and argv[1] in acceptable_arguments:
         logger.info(f'running report for {argv[1]}')
         if argv[1] == 'bing':
