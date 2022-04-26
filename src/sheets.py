@@ -85,4 +85,11 @@ class Sheets:
             logger.info('Clearing log sheet as delta threshold reached')
             ws.clear()
             ws.append_row(['Report','Start Time','End Time','Message'])
+
+
+    def read_excel_from_gdrive(self, file_id : str, sheet_name : str) -> pd.DataFrame:
+        sh = self.service.open_by_key(file_id)
+        ws = sh.worksheet(sheet_name)
+        df = pd.DataFrame(ws.get_all_records())
+        return df
         

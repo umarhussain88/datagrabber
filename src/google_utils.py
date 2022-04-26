@@ -33,12 +33,12 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=""
 
     if not cred or not cred.valid:
         if cred and cred.expired and cred.refresh_token:
-            cred._scopes = SCOPES
+            # cred._scopes = SCOPES
             # not sure why but my scope keeps getting reset to a string from a list object.
             cred.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-            cred = flow.run_local_server()
+            cred = flow.run_local_server(access_type='offline', include_granted_scopes='true')
 
         with open(os.path.join(working_dir, token_dir, pickle_file), "wb") as token:
             pickle.dump(cred, token)
