@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash -l
+source $HOME/.bashrc
 cd /home/umarh/datagrabber
 start_datetime=$(date '+%m_%d_%Y_%H_%M_%S')
 echo "${start_datetime}"

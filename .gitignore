@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#cron 
+
+datagrabber_cron.txt
+
 # C extensions
 *.so
 
