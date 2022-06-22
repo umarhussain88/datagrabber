@@ -15,6 +15,7 @@ openpyxl = "*"
 
 [dev-packages]
 ipykernel = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.8"

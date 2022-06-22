@@ -20,7 +20,7 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=""
 
     cred = None
     working_dir = os.getcwd()
-    token_dir = "token files"
+    token_dir = "token_files"
     pickle_file = f"token_{API_SERVICE_NAME}_{API_VERSION}{prefix}.pickle"
 
     ### Check if token dir exists first, if not, create the folder
@@ -39,6 +39,7 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=""
         else:
             flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
             cred = flow.run_local_server(access_type='offline', include_granted_scopes='true')
+            # cred = flow.run_local_server(include_granted_scopes='true')
 
         with open(os.path.join(working_dir, token_dir, pickle_file), "wb") as token:
             pickle.dump(cred, token)
@@ -51,3 +52,5 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=""
         logger.error(f"Failed to create service instance for {API_SERVICE_NAME} {e}")
         os.remove(os.path.join(working_dir, token_dir, pickle_file))
         return None
+
+
