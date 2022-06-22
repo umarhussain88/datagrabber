@@ -10,13 +10,7 @@ import pandas as pd
 
 from .google_utils import create_service
 from src.logger import logger_util
-
-# to do
-#add a logger
-#use gspread api to move data into gspread
-#start productionisation the code 
-##
-
+ 
 logger = logger_util('gmail')
 
 @dataclass
